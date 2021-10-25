@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
@@ -12,12 +12,10 @@
 	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
 	crossorigin="anonymous">
 
+<link href="css/tiendastyle.css" rel='stylesheet'>
 <head>
 <meta charset="ISO-8859-1">
-
-
-<title>Proveedores</title>
-
+<title>Listado de Clientes</title>
 <style type="text/css">
 table, th, td {
 	border: 2px solid black;
@@ -29,31 +27,36 @@ th, td {
 	padding: 10px;
 	text-align: left;
 }
-</style>
 
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+div.centraTabla {
+	text-align: center;
+}
+
+div.centraTabla table {
+	margin: 0 auto;
+	text-align: left;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-	var proveedores = $.ajax({
+	var clientes = $.ajax({
 		type : "GET",
-		url : "http://localhost:8080/listarProveedor",
+		url : "http://localhost:8080/listarCliente",
 		success : function(data) {
 			$.each(data, function(i, item) {
 				lista = document.getElementById("myTable");
 				var tr = document.createElement("tr");
 				var columna1 = document.createElement("td");
-				columna1.innerHTML = item.nitProveedor;
+				columna1.innerHTML = item.cedulaCliente;
 				var columna2 = document.createElement("td");
-				columna2.innerHTML = item.direccionProveedor;
+				columna2.innerHTML = item.direccionCliente;
 				var columna3 = document.createElement("td");
-				columna3.innerHTML = item.ciudadProveedor;
+				columna3.innerHTML = item.emailCliente;
 				var columna4 = document.createElement("td");
-				columna4.innerHTML = item.nombreProveedor;
+				columna4.innerHTML = item.nombreCliente;
 				var columna5 = document.createElement("td");
-				columna5.innerHTML = item.telefonoProveedor;
-				var columna6 = document.createElement("td");
-				columna6.innerHTML = "<a href ='' onclick = eliminarProveedor('"+item.nitProveedor+"') class='btn btn-primary' role='button'>Eliminar</a>";
-				var columna7 = document.createElement("td");
-				columna7.innerHTML = "<a href = 'EditarProveedor.jsp?cedula="+item.nitProveedor+"' class='btn btn-primary' role= 'button'>Editar</a>";
+				columna5.innerHTML = item.telefonoCliente;
 
 				lista.appendChild(tr);
 				tr.appendChild(columna1);
@@ -61,21 +64,9 @@ th, td {
 				tr.appendChild(columna3);
 				tr.appendChild(columna4);
 				tr.appendChild(columna5);
-				tr.appendChild(columna6);
-				tr.appendChild(columna7);
 			});
 		}
 	})
-	function eliminarProveedor(cedula){
-		alert(cedula);
-		var eliminar = $.ajax({
-			type: "GET",
-			url: "http://localhost:8080/eliminarProveedor?cedula="+cedula,
-			success: function(data){
-				
-			}
-		})
-	}
 </script>
 </head>
 <body>
@@ -89,42 +80,35 @@ th, td {
 						href="usuario.jsp">Usuarios</a></li>
 					<li class="nav-item"><a class="nav-link" href="cliente.jsp">Clientes</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="proveedor.jsp">Proveedores</a>
-					</li>
+					<li class="nav-item"><a class="nav-link"
+						href="proveedor.jsp">Proveedores</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="CargarProductos.jsp">Productos</a></li>
-					<li class="nav-item"><a class="nav-link" href="">Ventas</a>
-					</li>
+					<li class="nav-item"><a class="nav-link" href="">Ventas</a></li>
 					<li class="nav-item"><a class="nav-link" href="Reportes.jsp">Reportes</a>
 					</li>
-
 				</ul>
+				<div class='centraTabla'>
+					<h1>Listado de Clientes</h1>
+					<table id="tabla">
+						<thead>
+							<tr>
+								<th>Cedula</th>
+								<th>Nombre</th>
+								<th>Correo Electronico</th>
+								<th>Direccion</th>
+								<th>Telefono</th>
+							</tr>
+						</thead>
+						<tbody id="myTable">
 
-			<h4>Proveedores</h4>
-			
-			<table id="tabla">
-				<thead>
-					<tr>
-						<th>Nit</th>
-						<th>Direccion</th>
-						<th>Ciudad</th>
-						<th>Nombre</th>
-						<th>Telefono</th>
-						<th>Eliminar</th>
-						<th>Editar</th>
-					</tr>
-				</thead>
-				<tbody id="myTable">
-		
-				</tbody>
-			</table>
-				<div>
+						</tbody>
+					</table>
 					<br>
-					<a href="AgregarProveedor.jsp" class="btn btn-primary" role="button">Agregar Proveedor</a>
-				</div>	
+					<a href="Reportes.jsp" class="btn btn-primary" role="button">Volver</a>
+				</div>
 			</div>
 		</div>
-	</div>			
-	
+	</div>
 </body>
 </html>

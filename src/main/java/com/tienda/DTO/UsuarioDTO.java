@@ -6,6 +6,7 @@ public class UsuarioDTO {
 	private String nombreUsuario;
 	private String password;
 	private String usuario;
+	
 	public Integer getCedulaUsuario() {
 		return cedulaUsuario;
 	}
